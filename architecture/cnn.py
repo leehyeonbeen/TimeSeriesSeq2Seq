@@ -13,7 +13,7 @@ import warnings
 import math
 
 sys.path.append(os.getcwd())
-from architectures.skeleton import Skeleton
+from architecture.skeleton import Skeleton
 
 
 class ResidualConvolution(nn.Module):
@@ -90,9 +90,7 @@ class StackedResidualConvolution1D(Skeleton):
         cnn_activation="gelu",
     ):
         super().__init__()
-        self.model_info = {}  # initialize self.model_info to use update_attributes()
-        self.update_attributes(locals())
-        self.update_init_args(locals())
+        self.initialize_skeleton(locals())
 
         # CNNs
         base = 1.3

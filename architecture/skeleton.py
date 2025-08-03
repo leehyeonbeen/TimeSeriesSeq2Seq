@@ -6,6 +6,13 @@ import numpy as np
 
 class Skeleton(nn.Module):
     model_info = {}
+    
+    def initialize_skeleton(self, locals:dict):
+        super().__init__()
+        self.__dict__.update(locals)
+        self.update_init_args(locals)
+        self.update_model_info(locals)
+        self.set_device()
 
     def count_params(self):
         num_params = 0
@@ -20,7 +27,7 @@ class Skeleton(nn.Module):
             print(f"{k.upper()}: {v}")
         print()
 
-    def update_attributes(self, locals):  # put locals() to record configurations
+    def update_model_info(self, locals):  # put locals() to record configurations
         try:
             del locals["self"]  # Cannot be pickled
             del locals["__class__"]

@@ -13,10 +13,10 @@ import warnings
 import math
 
 sys.path.append(os.getcwd())
-from architectures.skeleton import Skeleton
-from architectures.rnn import *
-from architectures.cnn import *
-from architectures.mlp import *
+from architecture.skeleton import Skeleton
+from architecture.rnn import *
+from architecture.cnn import *
+from architecture.mlp import *
 
 
 class BahdanauAttention(nn.Module):
@@ -47,7 +47,7 @@ class BahdanauAttention(nn.Module):
         return attn_v, attn_scores  # (B,D*H), (B,L)
 
 
-class DotProductAttention(nn.Module):
+class ScaledDotProductAttention(nn.Module):
     def __init__(
         self,
         hidden_size: int,
@@ -74,7 +74,7 @@ class DotProductAttention(nn.Module):
         return attn_v, attn_scores  # (B,D*H), (B,L)
 
 
-class SelfAttention(nn.Module):
+class ScaledDotProductAttentionWithMask(nn.Module):
     def __init__(
         self,
         hidden_size: int,
@@ -104,3 +104,18 @@ class SelfAttention(nn.Module):
             dim=1, keepdim=True
         )
         return attn_v, attn_scores  # (B,D*H), (B,L)
+    
+# rectangular mask for temporal self attention
+def create_rectangular_mask(length_1: int, length_2: int, device: str = "cpu"):
+    mask = torch.zeros(length_1 + length_2, length_1 + length_2, device=device)
+    mask[:length_1, :length_1] = 1
+    mask[length_1:, length_1:] = torch.tril(
+        torch.ones(length_2, length_2, device=device)
+    )
+    return mask
+
+
+# square mask for transformer decoder self attention
+def create_square_mask(length: int, device: str = "cpu"):
+    mask = torch.tril(torch.ones(length, length, device=device))
+    return mask
