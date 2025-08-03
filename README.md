@@ -1,14 +1,17 @@
 # TimeSeriesSeq2Seq
 The repository aims to offer basic understandings on sequence-to-sequence modeling for beginners.  
-The repo implements the following:  
-- Basic convolution, LSTM, Transformer layers
-- Bahdanau attention LSTM Encoder-Decoder network by [Bahdanau et al.(2014)](https://arxiv.org/abs/1409.0473). See ```architecture.rnn``` and ```architecture.seq2seq.AttentionLSTMSeq2Seq```
+The repo implements the following Seq2Seq models:  
+- LSTM encoder-decoder
+- LSTM encoder-decoder with attention by [Bahdanau et al.(2014)](https://arxiv.org/abs/1409.0473). See ```architecture.rnn```, ```architecture.attention``` and ```architecture.seq2seq.AttentionLSTMSeq2Seq```
 - Vanilla Transformer by [Vaswani et al.(2017)](https://arxiv.org/abs/1706.03762). See ```architecture.Transformer``` and ```architecture.seq2seq.TransformerSeq2Seq```.  
 
-See [Tutorial.ipynb](https://github.com/hyeonbeenlee/NeuralSeq2Seq/blob/main/Tutorial.ipynb) for details.  
+> I only implemented three types of Seq2Seq model.  
+> You may combine 1D CNN, LSTM and Transformer layers for further-customized version.
+
+See [Tutorial.ipynb](https://github.com/hyeonbeenlee/NeuralSeq2Seq/blob/main/Tutorial.ipynb) for testing.  
 
 # Configuration
-Supports $(B,L_{in},C_{in})\xrightarrow{network}(B,L_{out},C_{out})$ operations, where  
+Suppose $(B,L_{in},C_{in})\xrightarrow{model}(B,L_{out},C_{out})$ operation, where  
 $\begin{aligned}
 B&=\text{batch\_size}\\
 L_{in}&=\text{input\_sequence\_length (variable)}\\
