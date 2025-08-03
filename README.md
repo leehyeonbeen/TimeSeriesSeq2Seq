@@ -11,14 +11,18 @@ The repo implements the following Seq2Seq models:
 See [Tutorial.ipynb](https://github.com/hyeonbeenlee/NeuralSeq2Seq/blob/main/Tutorial.ipynb) for testing.  
 
 # Configuration
-Suppose $(B,L_{in},C_{in})\xrightarrow{model}(B,L_{out},C_{out})$ operation, where  
-$\begin{aligned}
+Suppose $`(B,L_{in},C_{in})\xrightarrow{model}(B,L_{out},C_{out})`$ operation, where  
+
+```math
+\begin{aligned}
 B&=\text{batch\_size}\\
 L_{in}&=\text{input\_sequence\_length (variable)}\\
 C_{in}&=\text{input\_embedding\_size}\\
 L_{out}&=\text{output\_sequence\_length (variable)}\\
 C_{out}&=\text{output\_embedding\_size}\\
-\end{aligned}$  
+\end{aligned}
+```  
+
 - ```hidden_size``` Hidden state size of LSTM encoder. Equivalent to ```d_model``` in ```TransformerSeq2Seq```  
 - ```num_layers``` Number of LSTM and Transformer encoder, decoder layers.
 - ```bidirectional``` Whether to use bidirectional LSTM encoder.  
@@ -68,8 +72,7 @@ implements teacher-forced forward, which uses previous time step label data as c
 
 ##### ```forward``` 
 runs ```forward_labeled``` with probability of ```teacher_forcing```.  
-Else generates $(\text{batch\_size, trg\_len, }C_{out})$ shaped output tensor using ```forward_auto```.
-
+Else generates $`(\text{batch\_size},\ \text{trg\_len},\ C_{out})`$ shaped output tensor using ```forward_auto```.
 
 
 # Set hyperparameters and dummy tensors
