@@ -1,5 +1,5 @@
 # TimeSeriesSeq2Seq
-The repository aims to offer basic understandings on sequence-to-sequence modeling for beginners.  
+The repository aims to give basic understandings on **time-series sequence-to-sequence(Seq2Seq) model** for beginners.  
 The repo implements the following Seq2Seq models:  
 - LSTM encoder-decoder
 - LSTM encoder-decoder with attention by [Bahdanau et al.(2014)](https://arxiv.org/abs/1409.0473). See ```architecture.rnn```, ```architecture.attention``` and ```architecture.seq2seq.AttentionLSTMSeq2Seq```
@@ -58,9 +58,17 @@ class Seq2Seq(Skeleton):
         else:
             return self.forward_auto(x, trg_len)
 ```
-```forward_auto``` implements autoregressive forward, which uses the model's previous time step output as current time step input in its decoder.  
-```forward_labeled``` implements teacher-forced forward, which uses previous time step label data as current time step input in the decoder.  
-```forward``` runs ```forward_labeled``` with probability of ```teacher_forcing``` when given the label data ```y``` $\in\mathbb{R}^{(batch\_size, L_{out}, C_{out} )}$. Else generates $(\text{batch\_size, trg\_len, }C_{out})$ shaped output tensor using ```forward_auto```.
+##### ```forward_auto```
+implements autoregressive forward, which uses the model's previous time step output as current time step input in its decoder.  
+- Generally used in inference stage, when **label output data is not available.**
+
+##### ```forward_labeled```
+implements teacher-forced forward, which uses previous time step label data as current time step input in the decoder.  
+- Generally used in training stage, when label output data is available.  
+
+##### ```forward``` 
+runs ```forward_labeled``` with probability of ```teacher_forcing```.  
+Else generates $(\text{batch\_size, trg\_len, }C_{out})$ shaped output tensor using ```forward_auto```.
 
 
 
